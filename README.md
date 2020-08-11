@@ -1,4 +1,4 @@
-# arraysorter [![NPM version](https://img.shields.io/npm/v/arraysorter.svg?style=flat)](https://www.npmjs.com/package/arraysorter) [![NPM monthly downloads](https://img.shields.io/npm/dm/arraysorter.svg?style=flat)](https://npmjs.org/package/arraysorter)  [![NPM total downloads](https://img.shields.io/npm/dt/arraysorter.svg?style=flat)](https://npmjs.org/package/arraysorter) 
+# @andreas-hum/arraysorter [![NPM version](https://img.shields.io/npm/v/@andreas-hum/arraysorter.svg?style=flat)](https://www.npmjs.com/package/@andreas-hum/arraysorter) [![NPM monthly downloads](https://img.shields.io/npm/dm/@andreas-hum/arraysorter.svg?style=flat)](https://npmjs.org/package/@andreas-hum/arraysorter)  [![NPM total downloads](https://img.shields.io/npm/dt/@andreas-hum/arraysorter.svg?style=flat)](https://npmjs.org/package/@andreas-hum/arraysorter) 
 
 
 A package containing many different sorting algorithms for sorting arrays.
@@ -14,11 +14,11 @@ The latest version of npm or yarn
 ### Installing
 
 ```
-npm i arraysorter
+npm i @andreas-hum/arraysorter
 ```
 
 ```
-yarn add arraysorter
+yarn add @andreas-hum/arraysorter
 ```
 
 ## Usage
