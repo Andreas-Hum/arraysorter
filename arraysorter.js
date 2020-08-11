@@ -1468,10 +1468,6 @@ class ArraySorter {
             throw new Error(`bogoSort() expects an array! Found ${typeof arr}.`);
         }
 
-        if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
-            order = 'des';
-        }
-
         const isSorted = arr => {
             for (let i = 1; i < arr.length; i++) {
                 if (arr[i - 1] > arr[i]) {
@@ -1516,10 +1512,6 @@ class ArraySorter {
 
         if (!Array.isArray(arr)) {
             throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
-        }
-
-        if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
-            order = 'des';
         }
 
         let
@@ -1576,10 +1568,6 @@ class ArraySorter {
 
         if (!Array.isArray(arr)) {
             throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
-        }
-
-        if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
-            order = 'des';
         }
 
         if (arr[left] > arr[right]) {
@@ -1741,7 +1729,7 @@ class ArraySorter {
                 return;
         }
 
-        console.log(`Execution time ${(new Date().getMilliseconds() - timeOne) / 1000} s with ${func}`);
+        console.log(`Execution time ${Math.abs((new Date().getMilliseconds() - timeOne) / 1000)} s with ${func}`);
         return arr;
     }
 
