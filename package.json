@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Andreas-Hum/@andreas-hum/arraysorter.git"
+    "url": "git+https://github.com/Andreas-Hum/arraysorter"
   },
   "keywords": [
     "array",
@@ -22,7 +22,7 @@
   "author": "Andreas Svanberg",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Andreas-Hum/@andreas-hum/arraysorter/issues"
+    "url": "https://github.com/Andreas-Hum/arraysorter/issues"
   },
-  "homepage": "https://github.com/Andreas-Hum/@andreas-hum/arraysorter#readme"
+  "homepage": "https://github.com/Andreas-Hum/arraysorter#readme"
 }
