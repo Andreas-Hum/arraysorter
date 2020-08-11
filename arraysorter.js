@@ -424,7 +424,7 @@ class ArraySorter {
             }
         }
 
-        return order === 'des'
+        return order === 'asc'
             ? arr.reverse()
             : arr;
     }
