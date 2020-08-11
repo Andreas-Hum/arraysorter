@@ -1300,9 +1300,12 @@ class ArraySorter {
             max = 0,
             min = arr[0],
             m = ~~(0.45 * arr.length),
-            l = new Array(m);
+            l = new Array(m),
+            k,
+            i,
+            j;
 
-        for (let i = 1; i < arr.length; ++i) {
+        for (i = 1; i < arr.length; ++i) {
             if (arr[i] < min) {
                 min = arr[i];
             }
@@ -1318,10 +1321,10 @@ class ArraySorter {
         let c1 = (m - 1) / (arr[max] - min);
 
 
-        for (let k = 0; k < m; k++) {
+        for (k = 0; k < m; k++) {
             l[k] = 0;
         }
-        for (let j = 0; j < arr.length; ++j) {
+        for (j = 0; j < arr.length; ++j) {
             k = ~~(c1 * (arr[j] - min));
             ++l[k];
         }
@@ -1335,7 +1338,8 @@ class ArraySorter {
         let
             move = 0,
             t,
-            flash;
+            flash,
+            hold;
 
         j = 0;
         k = m - 1;
