@@ -1,0 +1,28 @@
+{
+  "name": "arraysorter",
+  "version": "1.0.0",
+  "description": "A package which implements many different sorting algorithms for sorting arrays",
+  "main": "arraysorter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andreas-Hum/arraysorter.git"
+  },
+  "keywords": [
+    "array",
+    "sorter",
+    "sorting",
+    "keys",
+    "sorting",
+    "algorithms",
+    "array"
+  ],
+  "author": "Andreas Svanberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andreas-Hum/arraysorter/issues"
+  },
+  "homepage": "https://github.com/Andreas-Hum/arraysorter#readme"
+}
