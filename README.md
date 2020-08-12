@@ -59,7 +59,7 @@ console.log(keySort);
   - Quick
   - (double) Selection - key+
   - Selection - key+
-  - Shell
+  - Shell - key+
   - Tim
 
 + Non-comparison sorts

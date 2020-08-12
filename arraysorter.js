@@ -1052,8 +1052,9 @@ class ArraySorter {
     * {Stable: No, Time: O(n*log(n)), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {string} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static shellSort(arr, order = 'des') {
+    static shellSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`ShellSort() expects an array! Found ${typeof arr}.`);
@@ -1063,16 +1064,23 @@ class ArraySorter {
             order = 'des';
         }
 
-        for (let h = arr.length; h > 0; h = parseInt(h / 2)) {
-            for (let i = h; i < arr.length; i++) {
-                let k = arr[i],
-                    j;
-                for (j = i; j >= h && k < arr[j - h]; j -= h) {
-                    arr[j] = arr[j - h];
+        if (comparison) {
+            for (let h = arr.length; h > 0; h = parseInt(h / 2)) {
+                for (let i = h; i < arr.length; i++) {
+                    let k = arr[i],
+                        j;
+                    // console.log(k)
+                    for (j = i; j >= h && k[comparison] < arr[j - h][comparison]; j -= h) {
+                        arr[j] = arr[j - h];
+                    }
+                    arr[j] = k;
                 }
-                arr[j] = k;
             }
+        } else {
+
         }
+
+
 
         return order === 'asc'
             ? arr.reverse()
