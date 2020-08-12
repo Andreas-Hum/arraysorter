@@ -86,7 +86,7 @@ class ArraySorter {
             order = 'des';
         }
 
-        if (key) {
+        if (comparison) {
             for (let i = 0; i < arr.length - 1; i++) {
 
                 let min = i;
@@ -131,8 +131,9 @@ class ArraySorter {
     * {Stable: No, Time: O(n^2), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {String} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static combSort(arr, order = 'des') {
+    static combSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`combSort() expects an array! Found ${typeof arr}.`);
@@ -147,26 +148,48 @@ class ArraySorter {
             if (gap < 1) {
                 return 1;
             }
-            return gap;
+            return Math.floor(gap);
         }
 
         let
             gap = arr.length,
             swapping = true;
 
-        while (gap !== 1 || swapping) {
-            gap = nextGap(gap);
-            swapping = false;
-            for (let i = 0; i < arr.length - gap; i++) {
-                if (order === 'asc' && arr[i] < arr[i + gap]) {
-                    ArraySorter.swap(arr, i, i + gap);
-                    swapping = true;
-                } else if (order === 'des' && arr[i] > arr[i + gap]) {
-                    ArraySorter.swap(arr, i, i + gap);
-                    swapping = true;
+        if (comparison) {
+            while (gap !== 1 || swapping) {
+
+                gap = nextGap(gap);
+                swapping = false;
+                for (let i = 0; i < arr.length - gap; i++) {
+                    if (order === 'asc' && arr[i][comparison] < arr[i + gap][comparison]) {
+                        ArraySorter.swap(arr, i, i + gap);
+                        swapping = true;
+                    } else if (order === 'des' && arr[i][comparison] > arr[i + gap][comparison]) {
+                        ArraySorter.swap(arr, i, i + gap);
+                        swapping = true;
+                    }
+                }
+            }
+        } else {
+            while (gap !== 1 || swapping) {
+
+                gap = nextGap(gap);
+                swapping = false;
+
+                for (let i = 0; i < arr.length - gap; i++) {
+                    if (order === 'asc' && arr[i] < arr[i + gap]) {
+                        ArraySorter.swap(arr, i, i + gap);
+                        swapping = true;
+                    } else if (order === 'des' && arr[i] > arr[i + gap]) {
+                        ArraySorter.swap(arr, i, i + gap);
+                        swapping = true;
+                    }
                 }
             }
         }
+
+
+
         return arr;
     }
 
