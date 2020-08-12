@@ -58,7 +58,7 @@ console.log(keySort);
   - Patience
   - Quick
   - (double) Selection
-  - Selection
+  - Selection - key+
   - Shell
   - Tim
 
