@@ -750,8 +750,9 @@ class ArraySorter {
     * {Stable: Yes, Time: O(n^2), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {String} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static oddEvenSort(arr, order = 'des') {
+    static oddEvenSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
@@ -763,37 +764,72 @@ class ArraySorter {
 
         let swapping = true;
 
-        while (swapping) {
+        if (comparison) {
+            while (swapping) {
 
-            swapping = false;
-            for (let i = 1; i < arr.length - 1; i += 2) {
-                if (order.toLowerCase() === 'asc') {
-                    if (arr[i] < arr[i + 1]) {
-                        ArraySorter.swap(arr, i, i + 1);
-                        swapping = true;
+                swapping = false;
+                for (let i = 1; i < arr.length - 1; i += 2) {
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i][comparison] < arr[i + 1][comparison]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i][comparison] > arr[i + 1][comparison]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
                     }
-                } else {
-                    if (arr[i] > arr[i + 1]) {
-                        ArraySorter.swap(arr, i, i + 1);
-                        swapping = true;
+                }
+
+                for (let i = 0; i < arr.length - 1; i += 2) {
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i][comparison] < arr[i + 1][comparison]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i][comparison] > arr[i + 1][comparison]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
                     }
                 }
             }
+        } else {
+            while (swapping) {
 
-            for (let i = 0; i < arr.length - 1; i += 2) {
-                if (order.toLowerCase() === 'asc') {
-                    if (arr[i] < arr[i + 1]) {
-                        ArraySorter.swap(arr, i, i + 1);
-                        swapping = true;
+                swapping = false;
+                for (let i = 1; i < arr.length - 1; i += 2) {
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i] < arr[i + 1]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i] > arr[i + 1]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
                     }
-                } else {
-                    if (arr[i] > arr[i + 1]) {
-                        ArraySorter.swap(arr, i, i + 1);
-                        swapping = true;
+                }
+
+                for (let i = 0; i < arr.length - 1; i += 2) {
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i] < arr[i + 1]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i] > arr[i + 1]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
                     }
                 }
             }
         }
+
 
         return arr;
     }

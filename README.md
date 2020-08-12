@@ -54,7 +54,7 @@ console.log(keySort);
   - (Binary) Insertion
   - Introspective
   - Merge - key+
-  - Odd even
+  - Odd even - key+
   - Patience
   - Quick
   - (double) Selection
