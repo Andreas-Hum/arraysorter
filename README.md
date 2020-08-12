@@ -63,7 +63,7 @@ console.log(keySort);
   - Tim
 
 + Non-comparison sorts
-  - Bucket
+  - Bucket - key+
   - Counting
   - Flash
   - (LSD) Radix

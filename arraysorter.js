@@ -1103,7 +1103,6 @@ class ArraySorter {
         }
 
         let MIN_GALLOP = 7;
-
         // === [SPLIT IMPROVEMENTS] === //
         // timsort: main loop
         const mainLoop = (arr, first, last, lessThan) => {
@@ -1509,7 +1508,6 @@ class ArraySorter {
             mainLoop(arr, 0, arr.length, lessThan);
             return arr;
         };
-
         return order.toLowerCase() === 'asc'
             ? sort(arr).reverse()
             : sort(arr);
@@ -1528,8 +1526,9 @@ class ArraySorter {
     * @param {Array} arr Array of numbers or strings
     * @param {string} order Sorting order, asc or des. Default is des
     * @param {Number} bucketSize The amounts of buckets. Default is 5
+    * @param {String} comparison the key that should be compared
     */
-    static bucketSort(arr, order = 'des', bucketSize = 5) {
+    static bucketSort(arr, order = 'des', bucketSize = 5, comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`bucketSort() expects an array! Found ${typeof arr}.`);
@@ -1543,38 +1542,78 @@ class ArraySorter {
             return arr;
         }
 
-        let
-            minValue = arr[0],
-            maxValue = arr[0];
 
-        arr.forEach(function (currentVal) {
-            if (currentVal < minValue) {
-                minValue = currentVal;
-            } else if (currentVal > maxValue) {
-                maxValue = currentVal;
+
+        if (comparison) {
+            let
+                minValue = arr[0][comparison],
+                maxValue = arr[0][comparison];
+
+            arr.forEach(function (currentVal) {
+                if (currentVal[comparison] < minValue) {
+                    minValue = currentVal[comparison];
+                } else if (currentVal[comparison] > maxValue) {
+                    maxValue = currentVal[comparison];
+                }
+            })
+
+            let
+                bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1,
+                allBuckets = new Array(bucketCount);
+
+            for (let i = 0; i < allBuckets.length; i++) {
+                allBuckets[i] = [];
             }
-        })
 
-        let
-            bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1,
-            allBuckets = new Array(bucketCount);
+            arr.forEach(function (currentVal) {
+                allBuckets[Math.floor((currentVal[comparison] - minValue) / bucketSize)].push(currentVal);
+            });
 
-        for (let i = 0; i < allBuckets.length; i++) {
-            allBuckets[i] = [];
+            arr.length = 0;
+
+            allBuckets.forEach(function (bucket) {
+                ArraySorter.insertionSort(bucket, 'des', comparison);
+                bucket.forEach(function (element) {
+                    arr.push(element)
+                });
+            });
+
+
+        } else {
+            let
+                minValue = arr[0],
+                maxValue = arr[0];
+
+            arr.forEach(function (currentVal) {
+                if (currentVal < minValue) {
+                    minValue = currentVal;
+                } else if (currentVal > maxValue) {
+                    maxValue = currentVal;
+                }
+            })
+
+            let
+                bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1,
+                allBuckets = new Array(bucketCount);
+
+            for (let i = 0; i < allBuckets.length; i++) {
+                allBuckets[i] = [];
+            }
+
+            arr.forEach(function (currentVal) {
+                allBuckets[Math.floor((currentVal - minValue) / bucketSize)].push(currentVal);
+            });
+
+            arr.length = 0;
+
+            allBuckets.forEach(function (bucket) {
+                ArraySorter.insertionSort(bucket);
+                bucket.forEach(function (element) {
+                    arr.push(element)
+                });
+            });
         }
 
-        arr.forEach(function (currentVal) {
-            allBuckets[Math.floor((currentVal - minValue) / bucketSize)].push(currentVal);
-        });
-
-        arr.length = 0;
-
-        allBuckets.forEach(function (bucket) {
-            ArraySorter.insertionSort(bucket);
-            bucket.forEach(function (element) {
-                arr.push(element)
-            });
-        });
 
         return order === 'asc'
             ? arr.reverse()
