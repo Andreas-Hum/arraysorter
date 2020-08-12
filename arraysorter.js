@@ -485,8 +485,9 @@ class ArraySorter {
     * {Stable: No, Time: O(n*log(n)), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {string} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static maxHeapSort(arr, order = 'des') {
+    static maxHeapSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`maxHeapSort() expects an array! Found ${typeof arr}.`);
@@ -497,12 +498,20 @@ class ArraySorter {
         }
 
         for (let i = Math.floor(arr.length / 2 - 1); i >= 0; i--) {
-            ArraySorter.maxHeapify(arr, arr.length, i);
+            comparison
+                ? ArraySorter.maxHeapify(arr, arr.length, i, comparison)
+                : ArraySorter.maxHeapify(arr, arr.length, i);
+
         }
 
         for (let i = arr.length - 1; i >= 0; i--) {
+
             ArraySorter.swap(arr, i, 0);
-            ArraySorter.maxHeapify(arr, i, 0);
+
+            comparison
+                ? ArraySorter.maxHeapify(arr, arr.length, i, comparison)
+                : ArraySorter.maxHeapify(arr, arr.length, i);
+
         }
 
         return order === 'asc'
@@ -514,9 +523,10 @@ class ArraySorter {
     /** Returns a sorted array using min heap sort
     * {Stable: No, Time: O(n*log(n)), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
-    * @param {string} order Sorting order, asc or des. Default is asc
+    * @param {string} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static minHeapSort(arr, order = 'asc') {
+    static minHeapSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`minHeapSort() expects an array! Found ${typeof arr}.`);
@@ -527,15 +537,19 @@ class ArraySorter {
         }
 
         for (let i = Math.floor(arr.length / 2 - 1); i >= 0; i--) {
-            ArraySorter.minHeapify(arr, arr.length, i);
+            comparison
+                ? ArraySorter.minHeapify(arr, arr.length, i, comparison)
+                : ArraySorter.minHeapify(arr, arr.length, i);
         }
 
         for (let i = arr.length - 1; i >= 0; i--) {
             ArraySorter.swap(arr, i, 0);
-            ArraySorter.minHeapify(arr, i, 0);
+            comparison
+                ? ArraySorter.minHeapify(arr, arr.length, i, comparison)
+                : ArraySorter.minHeapify(arr, arr.length, i);
         }
 
-        return order === 'des'
+        return order === 'asc'
             ? arr.reverse()
             : arr;
     }
@@ -1987,26 +2001,48 @@ class ArraySorter {
     /** Returns a max heapified array, used for max heap sort
     * @param {Array} arr The array to heapify
     * @param {*} length The length of the array
-    * @param {*} maxIndex The index of the root element;
+    * @param {*} maxIndex The index of the root element
+    * @param {String} comparison the key that should be compared
     */
-    static maxHeapify(arr, length, maxIndex) {
+    static maxHeapify(arr, length, maxIndex, comparison = null) {
 
         let max = maxIndex,
             left = maxIndex * 2 + 1,
             right = maxIndex + 1;
 
-        if (left < length && arr[left] > arr[max]) {
-            max = left;
+        if (comparison) {
+            if (left < length && arr[left][comparison] > arr[max][comparison]) {
+                max = left;
+            }
+
+            if (right < length && arr[right][comparison] > arr[max][comparison]) {
+                max = right;
+            }
+
+        } else {
+            if (left < length && arr[left] > arr[max]) {
+                max = left;
+            }
+
+            if (right < length && arr[right] > arr[max]) {
+                max = right;
+            }
+
+
         }
 
-        if (right < length && arr[right] > arr[max]) {
-            max = right;
+        if (comparison) {
+            if (max !== maxIndex) {
+                ArraySorter.swap(arr, maxIndex, max);
+                this.maxHeapify(arr, length, max, comparison);
+            }
+        } else {
+            if (max !== maxIndex) {
+                ArraySorter.swap(arr, maxIndex, max);
+                this.maxHeapify(arr, length, max);
+            }
         }
 
-        if (max !== maxIndex) {
-            ArraySorter.swap(arr, maxIndex, max);
-            this.maxHeapify(arr, length, max);
-        }
 
         return arr;
     }
@@ -2015,26 +2051,47 @@ class ArraySorter {
     /** Returns a max heapified array, used for min heap sort
     * @param {Array} arr The array to heapify
     * @param {Number} length The length of the array
-    * @param {Number} minIndex The index of the root element;
+    * @param {Number} minIndex The index of the root element
+    * @param {String} comparison the key that should be compared
     */
-    static minHeapify(arr, length, minIndex) {
+    static minHeapify(arr, length, minIndex, comparison = null) {
 
         let min = minIndex,
             left = minIndex * 2 + 1,
             right = minIndex + 1;
 
-        if (left < length && arr[left] < arr[min]) {
-            min = left;
+
+        if (comparison) {
+            if (left < length && arr[left][comparison] < arr[min][comparison]) {
+                min = left;
+            }
+
+            if (right < length && arr[right][comparison] < arr[min][comparison]) {
+                min = right;
+            }
+        } else {
+            if (left < length && arr[left] < arr[min]) {
+                min = left;
+            }
+
+            if (right < length && arr[right] < arr[min]) {
+                min = right;
+            }
         }
 
-        if (right < length && arr[right] < arr[min]) {
-            min = right;
+
+        if (comparison) {
+            if (min !== minIndex) {
+                ArraySorter.swap(arr, minIndex, min);
+                this.minHeapify(arr, length, min, comparison);
+            }
+        } else {
+            if (min !== minIndex) {
+                ArraySorter.swap(arr, minIndex, min);
+                this.minHeapify(arr, length, min);
+            }
         }
 
-        if (min !== minIndex) {
-            ArraySorter.swap(arr, minIndex, min);
-            this.minHeapify(arr, length, min);
-        }
 
         return arr;
     }

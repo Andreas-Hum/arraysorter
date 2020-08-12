@@ -42,14 +42,14 @@ console.log(keySort);
 ## List of current sorting algorithms implemented: key+ means that the algorithm can sort via keys
 
 + Comparison sorts
-  - Bubble key+
-  - Bingo key+
-  - Comb key+
-  - Cycle key+
-  - Cocktail key+
-  - Gnome 
-  - (max) Heap
-  - (min) Heap
+  - Bubble - key+
+  - Bingo - key+
+  - Comb - key+
+  - Cycle - key+
+  - Cocktail - key+
+  - Gnome - key+
+  - (max) Heap - key+
+  - (min) Heap - key+
   - Insertion
   - (Binary) Insertion
   - Introspective
