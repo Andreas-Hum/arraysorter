@@ -469,8 +469,9 @@ class ArraySorter {
     * {Stable: Yes, Time: O(n*log(n)), Memory: O(n)}
     * @param {Array} arr Array of numbers or strings
     * @param {String} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static mergeSort(arr, order = 'des') {
+    static mergeSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`mergeSort() expects an array! Found ${typeof arr}.`);
@@ -486,17 +487,30 @@ class ArraySorter {
 
         const merge = (leftArr, rightArr) => {
 
+
             const sortedArr = [];
 
             while (leftArr.length && rightArr.length) {
                 if (order === 'asc') {
-                    leftArr[0] > rightArr[0]
-                        ? sortedArr.push(leftArr.shift())
-                        : sortedArr.push(rightArr.shift());
+                    if (comparison) {
+                        leftArr[0][comparison] > rightArr[0][comparison]
+                            ? sortedArr.push(leftArr.shift())
+                            : sortedArr.push(rightArr.shift());
+                    } else {
+                        leftArr[0] > rightArr[0]
+                            ? sortedArr.push(leftArr.shift())
+                            : sortedArr.push(rightArr.shift());
+                    }
                 } else {
-                    leftArr[0] < rightArr[0]
-                        ? sortedArr.push(leftArr.shift())
-                        : sortedArr.push(rightArr.shift());
+                    if (comparison) {
+                        leftArr[0][comparison] < rightArr[0][comparison]
+                            ? sortedArr.push(leftArr.shift())
+                            : sortedArr.push(rightArr.shift());
+                    } else {
+                        leftArr[0] < rightArr[0]
+                            ? sortedArr.push(leftArr.shift())
+                            : sortedArr.push(rightArr.shift());
+                    }
                 }
             }
             return sortedArr.concat(leftArr).concat(rightArr);
@@ -507,7 +521,10 @@ class ArraySorter {
             leftArr = arr.splice(0, middle),
             rightArr = arr;
 
-        return merge(this.mergeSort(leftArr, order), this.mergeSort(rightArr, order));
+        return comparison
+            ? merge(this.mergeSort(leftArr, order, comparison), this.mergeSort(rightArr, order, comparison))
+            : merge(this.mergeSort(leftArr, order), this.mergeSort(rightArr, order));
+
     }
 
 
@@ -1874,5 +1891,10 @@ class ArraySorter {
 }
 
 
+let testArr = [];
+
+for (let i = 0; i < 10; i++) {
+    testArr.push({ 'key': i })
+}
 
 module.exports = ArraySorter;
