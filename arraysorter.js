@@ -971,8 +971,9 @@ class ArraySorter {
     * {Stable: No, Time: O(n^2), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {String} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static doubleSelectionSort(arr, order = 'des') {
+    static doubleSelectionSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
@@ -982,32 +983,63 @@ class ArraySorter {
             order = 'des';
         }
 
-        for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
+        if (comparison) {
+            for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
 
-            let
-                min = arr[i],
-                max = arr[i],
-                minIndex = i,
-                maxIndex = i;
+                let
+                    min = arr[i][comparison],
+                    max = arr[i][comparison],
+                    minIndex = i,
+                    maxIndex = i;
 
-            for (let k = i; k <= j; k++) {
-                if (arr[k] > max) {
-                    max = arr[k];
-                    maxIndex = k;
-                } else if (arr[k] < min) {
-                    min = arr[k];
-                    minIndex = k;
+                for (let k = i; k <= j; k++) {
+                    if (arr[k][[comparison]] > max) {
+                        max = arr[k][[comparison]];
+                        maxIndex = k;
+                    } else if (arr[k] < min) {
+                        min = arr[k][[comparison]];
+                        minIndex = k;
+                    }
                 }
+
+                ArraySorter.swap(arr, i, minIndex)
+
+                if (arr[minIndex] === max) {
+                    ArraySorter.swap(arr, j, minIndex);
+                } else {
+                    ArraySorter.swap(arr, j, maxIndex);
+                }
+
             }
 
-            ArraySorter.swap(arr, i, minIndex)
+        } else {
+            for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
 
-            if (arr[minIndex] === max) {
-                ArraySorter.swap(arr, j, minIndex);
-            } else {
-                ArraySorter.swap(arr, j, maxIndex);
+                let
+                    min = arr[i],
+                    max = arr[i],
+                    minIndex = i,
+                    maxIndex = i;
+
+                for (let k = i; k <= j; k++) {
+                    if (arr[k] > max) {
+                        max = arr[k];
+                        maxIndex = k;
+                    } else if (arr[k] < min) {
+                        min = arr[k];
+                        minIndex = k;
+                    }
+                }
+
+                ArraySorter.swap(arr, i, minIndex)
+
+                if (arr[minIndex] === max) {
+                    ArraySorter.swap(arr, j, minIndex);
+                } else {
+                    ArraySorter.swap(arr, j, maxIndex);
+                }
+
             }
-
         }
 
         return order === 'asc'

@@ -57,7 +57,7 @@ console.log(keySort);
   - Odd even - key+
   - Patience
   - Quick
-  - (double) Selection
+  - (double) Selection - key+
   - Selection - key+
   - Shell
   - Tim
