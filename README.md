@@ -50,10 +50,10 @@ console.log(keySort);
   - Gnome - key+
   - (max) Heap - key+
   - (min) Heap - key+
-  - Insertion
+  - Insertion - key+
   - (Binary) Insertion
   - Introspective
-  - Merge key+
+  - Merge - key+
   - Odd even
   - Patience
   - Quick

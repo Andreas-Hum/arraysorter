@@ -559,8 +559,9 @@ class ArraySorter {
     * {Stable: Yes, Time: O(n^2), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {String} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static insertionSort(arr, order = 'des') {
+    static insertionSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`insertionSort() expects an array! Found ${typeof arr}.`);
@@ -570,24 +571,47 @@ class ArraySorter {
             order = 'des';
         }
 
-        for (let i = 0; i < arr.length; i++) {
-            let
-                insertVal = arr[i],
-                pos = i;
+        if (comparison) {
+            for (let i = 0; i < arr.length; i++) {
+                let
+                    insertVal = arr[i],
+                    pos = i;
 
-            if (order.toLowerCase() === 'asc') {
-                while (0 < pos && arr[pos - 1] < insertVal) {
-                    arr[pos] = arr[pos - 1];
-                    pos--;
+                if (order.toLowerCase() === 'asc') {
+                    while (0 < pos && arr[pos - 1][comparison] < insertVal[comparison]) {
+                        arr[pos] = arr[pos - 1];
+                        pos--;
+                    }
+                } else {
+                    while (0 < pos && arr[pos - 1][comparison] > insertVal[comparison]) {
+                        arr[pos] = arr[pos - 1];
+                        pos--;
+                    }
                 }
-            } else {
-                while (0 < pos && arr[pos - 1] > insertVal) {
-                    arr[pos] = arr[pos - 1];
-                    pos--;
-                }
+                arr[pos] = insertVal;
             }
-            arr[pos] = insertVal;
+        } else {
+            for (let i = 0; i < arr.length; i++) {
+                let
+                    insertVal = arr[i],
+                    pos = i;
+
+                if (order.toLowerCase() === 'asc') {
+                    while (0 < pos && arr[pos - 1] < insertVal) {
+                        arr[pos] = arr[pos - 1];
+                        pos--;
+                    }
+                } else {
+                    while (0 < pos && arr[pos - 1] > insertVal) {
+                        arr[pos] = arr[pos - 1];
+                        pos--;
+                    }
+                }
+                arr[pos] = insertVal;
+            }
         }
+
+
         return arr;
     }
 
