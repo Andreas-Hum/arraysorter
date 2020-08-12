@@ -74,8 +74,9 @@ class ArraySorter {
     * {Stable: No, Time: O(n*m), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {String} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static bingoSort(arr, order = 'des') {
+    static bingoSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`bingoSort() expects an array! Found ${typeof arr}.`);
@@ -85,21 +86,40 @@ class ArraySorter {
             order = 'des';
         }
 
-        for (let i = 0; i < arr.length - 1; i++) {
+        if (key) {
+            for (let i = 0; i < arr.length - 1; i++) {
 
-            let min = i;
+                let min = i;
 
-            for (let j = i + 1; j < arr.length; j++) {
+                for (let j = i + 1; j < arr.length; j++) {
 
-                if (arr[j] < arr[min]) {
-                    min = j;
+                    if (arr[j][comparison] < arr[min][comparison]) {
+                        min = j;
+                    }
+                }
+
+                if (min !== i) {
+                    ArraySorter.swap(arr, min, i)
                 }
             }
+        } else {
+            for (let i = 0; i < arr.length - 1; i++) {
 
-            if (min !== i) {
-                ArraySorter.swap(arr, min, i)
+                let min = i;
+
+                for (let j = i + 1; j < arr.length; j++) {
+
+                    if (arr[j] < arr[min]) {
+                        min = j;
+                    }
+                }
+
+                if (min !== i) {
+                    ArraySorter.swap(arr, min, i)
+                }
             }
         }
+
 
         return order === 'asc'
             ? arr.reverse()

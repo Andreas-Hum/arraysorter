@@ -17,7 +17,8 @@
     "keys",
     "sorting",
     "algorithms",
-    "array"
+    "array",
+    "key sorting"
   ],
   "author": "Andreas Svanberg",
   "license": "ISC",

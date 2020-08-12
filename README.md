@@ -1,7 +1,7 @@
 # @andreas-hum/arraysorter [![NPM version](https://img.shields.io/npm/v/@andreas-hum/arraysorter.svg?style=flat)](https://www.npmjs.com/package/@andreas-hum/arraysorter) [![NPM monthly downloads](https://img.shields.io/npm/dm/@andreas-hum/arraysorter.svg?style=flat)](https://npmjs.org/package/@andreas-hum/arraysorter)  [![NPM total downloads](https://img.shields.io/npm/dt/@andreas-hum/arraysorter.svg?style=flat)](https://npmjs.org/package/@andreas-hum/arraysorter) 
 
 
-A package containing many different sorting algorithms for sorting arrays.
+A package containing many different sorting algorithms for sorting arrays or key pair arrays.
 
 ## Getting Started
 
