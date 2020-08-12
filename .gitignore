@@ -7,7 +7,7 @@ test/actual
 actual
 coverage
 .nyc*
-testing
+testing.js
 
 # npm
 node_modules
