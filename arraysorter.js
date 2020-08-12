@@ -198,8 +198,9 @@ class ArraySorter {
     * {Stable: No, Time: O(n^2), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {string} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static cycleSort(arr, order = 'des') {
+    static cycleSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`cycleSort() expects an array! Found ${typeof arr}.`);
@@ -209,33 +210,56 @@ class ArraySorter {
             order = 'des';
         }
 
-        for (let ci = 0; ci < arr.length - 1; ci++) {
+        if (comparison) {
+            for (let ci = 0; ci < arr.length - 1; ci++) {
 
-            let
-                item = arr[ci],
-                copyIndex = ci;
+                let
+                    item = arr[ci][comparison],
+                    copyIndex = ci;
 
-            for (let i = ci + 1; i < arr.length; i++) {
-                if (arr[i] < item) {
-                    copyIndex++;
+                for (let i = ci + 1; i < arr.length; i++) {
+                    if (arr[i][comparison] < item) {
+                        copyIndex++;
+                    }
+                }
+
+                if (ci === copyIndex) {
+                    continue;
+                }
+
+                while (item === arr[copyIndex][comparison]) {
+                    copyIndex++
+                }
+
+                //TODO fix the swapping for this to work
+                [arr[copyIndex][comparison], item] = [item, arr[copyIndex][comparison]]
+
+
+                while (copyIndex !== ci) {
+
+                    copyIndex = ci
+
+                    for (let i = ci + 1; i < arr.length; i++) {
+                        if (arr[i][comparison] < item) {
+                            copyIndex++;
+                        }
+                    }
+
+                    // skip duplicates
+                    while (item === arr[copyIndex][comparison]) {
+                        copyIndex++
+                    }
+
+                    [arr[copyIndex][comparison], item] = [item, arr[copyIndex][comparison]]
+
                 }
             }
+        } else {
+            for (let ci = 0; ci < arr.length - 1; ci++) {
 
-            if (ci === copyIndex) {
-                continue;
-            }
-
-            while (item === arr[copyIndex]) {
-                copyIndex++
-            }
-
-
-            [arr[copyIndex], item] = [item, arr[copyIndex]]
-
-
-            while (copyIndex !== ci) {
-
-                copyIndex = ci
+                let
+                    item = arr[ci],
+                    copyIndex = ci;
 
                 for (let i = ci + 1; i < arr.length; i++) {
                     if (arr[i] < item) {
@@ -243,15 +267,40 @@ class ArraySorter {
                     }
                 }
 
-                // skip duplicates
+                if (ci === copyIndex) {
+                    continue;
+                }
+
                 while (item === arr[copyIndex]) {
                     copyIndex++
                 }
 
+
                 [arr[copyIndex], item] = [item, arr[copyIndex]]
 
+
+                while (copyIndex !== ci) {
+
+                    copyIndex = ci
+
+                    for (let i = ci + 1; i < arr.length; i++) {
+                        if (arr[i] < item) {
+                            copyIndex++;
+                        }
+                    }
+
+                    // skip duplicates
+                    while (item === arr[copyIndex]) {
+                        copyIndex++
+                    }
+
+                    [arr[copyIndex], item] = [item, arr[copyIndex]]
+
+                }
             }
         }
+
+
         return order === 'asc'
             ? arr.reverse()
             : arr;

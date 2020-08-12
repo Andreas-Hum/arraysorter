@@ -34,18 +34,18 @@ let sortedArrAsc = sort.cocktailSort([2,4,1,3,5],'asc');
 console.log(sortedArrAsc);
 //Output [5,4,3,2,1]
 
-let stringSort = sort.mergeSort(['b','c','a']);
-console.log(stringSort);
-//Output ['a','b','c'];
+let keySort = sort.mergeSort([{ 'key': 'foo' }, { 'key': 'bar' }], 'des', 'key')
+console.log(keySort);
+//Output [{ 'key': 'bar' },{ 'key': 'foo' }];
 ```
 
-## List of current sorting algorithms implemented
+## List of current sorting algorithms implemented: key+ means that the algorithm can sort via keys
 
 + Comparison sorts
-  - Bubble
-  - Bingo
-  - Comb
-  - Cycle
+  - Bubble key+
+  - Bingo key+
+  - Comb key+
+  - Cycle key+
   - Cocktail
   - Gnome
   - (max) Heap
@@ -53,7 +53,7 @@ console.log(stringSort);
   - Insertion
   - (Binary) Insertion
   - Introspective
-  - Merge
+  - Merge key+
   - Odd even
   - Patience
   - Quick
