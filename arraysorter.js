@@ -892,7 +892,7 @@ class ArraySorter {
     * @param {Number} leftBound Index of the left bound
     * @param {Number} rightBound Index of the right bound
     */
-    static quickSort(arr, order = 'des', leftBound = 0, rightBound = arr.length - 1) {
+    static quickSort(arr, order = 'des', comparison = null, leftBound = 0, rightBound = arr.length - 1) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`quickSort() expects an array! Found ${typeof arr}.`);
@@ -902,11 +902,21 @@ class ArraySorter {
             order = 'des';
         }
 
-        if (leftBound < rightBound) {
-            const pivotIndex = ArraySorter.partition(arr, leftBound, rightBound);
-            this.quickSort(arr, order, leftBound, pivotIndex - 1);
-            this.quickSort(arr, order, pivotIndex, rightBound);
+        if (comparison) {
+            if (leftBound < rightBound) {
+                const pivotIndex = ArraySorter.partition(arr, leftBound, rightBound);
+                this.quickSort(arr, order, leftBound, pivotIndex - 1);
+                this.quickSort(arr, order, pivotIndex, rightBound);
+            }
+        } else {
+            if (leftBound < rightBound) {
+                const pivotIndex = ArraySorter.partition(arr, leftBound, rightBound);
+                this.quickSort(arr, order, leftBound, pivotIndex - 1);
+                this.quickSort(arr, order, pivotIndex, rightBound);
+            }
         }
+
+
 
         return order === 'asc'
             ? arr.reverse()
@@ -2134,25 +2144,45 @@ class ArraySorter {
     * @param {Number} leftIndex Index of the left bound
     * @param {Number} rightIndex Index of the right bound
     */
-    static partition(arr, leftIndex, rightIndex) {
+    static partition(arr, comparison = null, leftIndex, rightIndex) {
 
-        const pivot = arr[Math.floor((rightIndex + leftIndex) / 2)]
+        if (comparison) {
+            const pivot = arr[Math.floor((rightIndex + leftIndex) / 2)][comparison]
 
-        while (leftIndex <= rightIndex) {
-            while (arr[leftIndex] < pivot) {
-                leftIndex++;
+            while (leftIndex <= rightIndex) {
+                while (arr[leftIndex][comparison] < pivot) {
+                    leftIndex++;
+                }
+                while (arr[rightIndex][comparison] > pivot) {
+                    rightIndex--;
+                }
+                if (leftIndex <= rightIndex) {
+                    ArraySorter.swap(arr, leftIndex, rightIndex);
+                    leftIndex++;
+                    rightIndex--;
+                }
             }
-            while (arr[rightIndex] > pivot) {
-                rightIndex--;
-            }
-            if (leftIndex <= rightIndex) {
-                ArraySorter.swap(arr, leftIndex, rightIndex);
-                leftIndex++;
-                rightIndex--;
+        } else {
+            const pivot = arr[Math.floor((rightIndex + leftIndex) / 2)]
+
+            while (leftIndex <= rightIndex) {
+                while (arr[leftIndex] < pivot) {
+                    leftIndex++;
+                }
+                while (arr[rightIndex] > pivot) {
+                    rightIndex--;
+                }
+                if (leftIndex <= rightIndex) {
+                    ArraySorter.swap(arr, leftIndex, rightIndex);
+                    leftIndex++;
+                    rightIndex--;
+                }
             }
         }
+
         return leftIndex;
     }
+
 
 
     /** Returns a max heapified array, used for max heap sort
