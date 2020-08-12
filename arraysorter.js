@@ -1,3 +1,7 @@
+
+/**
+ * The main class of the library
+ */
 class ArraySorter {
 
     /*
