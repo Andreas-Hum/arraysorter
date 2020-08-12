@@ -46,7 +46,7 @@ console.log(keySort);
   - Bingo key+
   - Comb key+
   - Cycle key+
-  - Cocktail
+  - Cocktail key+
   - Gnome
   - (max) Heap
   - (min) Heap

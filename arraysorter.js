@@ -311,8 +311,9 @@ class ArraySorter {
     * {Stable: Yes, Time: O(n^2), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {string} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static cocktailSort(arr, order = 'des') {
+    static cocktailSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
             throw new Error(`cycleSort() expects an array! Found ${typeof arr}.`);
@@ -324,47 +325,93 @@ class ArraySorter {
 
         let swapping = true;
 
-        while (swapping) {
+        if (comparison) {
+            while (swapping) {
 
-            swapping = false;
+                swapping = false;
 
-            for (let i = 0; i < arr.length - 1; i++) {
+                for (let i = 0; i < arr.length - 1; i++) {
 
-                if (order.toLowerCase() === 'asc') {
-                    if (arr[i] < arr[i + 1]) {
-                        ArraySorter.swap(arr, i, i + 1);
-                        swapping = true;
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i][comparison] < arr[i + 1][comparison]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i][comparison] > arr[i + 1][comparison]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
                     }
-                } else {
-                    if (arr[i] > arr[i + 1]) {
-                        ArraySorter.swap(arr, i, i + 1);
-                        swapping = true;
-                    }
+
                 }
 
-            }
-
-            if (!swapping) {
-                break;
-            }
+                if (!swapping) {
+                    break;
+                }
 
 
-            swapping = false;
+                swapping = false;
 
-            for (let i = arr.length - 1; i > 0; i--) {
-                if (order.toLowerCase() === 'asc') {
-                    if (arr[i - 1] < arr[i]) {
-                        ArraySorter.swap(arr, i, i - 1);
-                        swapping = true;
+                for (let i = arr.length - 1; i > 0; i--) {
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i - 1][comparison] < arr[i][comparison]) {
+                            ArraySorter.swap(arr, i, i - 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i - 1][comparison] > arr[i][comparison]) {
+                            ArraySorter.swap(arr, i, i - 1);
+                            swapping = true;
+                        }
                     }
-                } else {
-                    if (arr[i - 1] > arr[i]) {
-                        ArraySorter.swap(arr, i, i - 1);
-                        swapping = true;
+                }
+            }
+        } else {
+            while (swapping) {
+
+                swapping = false;
+
+                for (let i = 0; i < arr.length - 1; i++) {
+
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i] < arr[i + 1]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i] > arr[i + 1]) {
+                            ArraySorter.swap(arr, i, i + 1);
+                            swapping = true;
+                        }
+                    }
+
+                }
+
+                if (!swapping) {
+                    break;
+                }
+
+
+                swapping = false;
+
+                for (let i = arr.length - 1; i > 0; i--) {
+                    if (order.toLowerCase() === 'asc') {
+                        if (arr[i - 1] < arr[i]) {
+                            ArraySorter.swap(arr, i, i - 1);
+                            swapping = true;
+                        }
+                    } else {
+                        if (arr[i - 1] > arr[i]) {
+                            ArraySorter.swap(arr, i, i - 1);
+                            swapping = true;
+                        }
                     }
                 }
             }
         }
+
+
         return arr;
     }
 
