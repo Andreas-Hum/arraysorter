@@ -47,7 +47,7 @@ console.log(keySort);
   - Comb key+
   - Cycle key+
   - Cocktail key+
-  - Gnome
+  - Gnome 
   - (max) Heap
   - (min) Heap
   - Insertion

@@ -420,8 +420,9 @@ class ArraySorter {
     * {Stable: Yes, Time: O(n^2), Memory: O(1)}
     * @param {Array} arr Array of numbers or strings
     * @param {string} order Sorting order, asc or des. Default is des
+    * @param {String} comparison the key that should be compared
     */
-    static gnomeSort(arr, order = 'des') {
+    static gnomeSort(arr, order = 'des', comparison = null) {
 
         //alternative
         // static gnomeSort(sortMe) {
@@ -445,17 +446,34 @@ class ArraySorter {
             order = 'des';
         }
 
+
         const moveBack = (i) => {
-            for (; i > 0 && arr[i - 1] > arr[i]; i--) {
-                ArraySorter.swap(arr, i, i - 1)
+            if (comparison) {
+                for (; i > 0 && arr[i - 1][comparison] > arr[i][comparison]; i--) {
+                    ArraySorter.swap(arr, i, i - 1)
+                }
+            } else {
+                for (; i > 0 && arr[i - 1] > arr[i]; i--) {
+                    ArraySorter.swap(arr, i, i - 1)
+                }
+            }
+
+        }
+
+        if (comparison) {
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i - 1][comparison] > arr[i][comparison]) {
+                    moveBack(i)
+                }
+            }
+        } else {
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i - 1] > arr[i]) {
+                    moveBack(i)
+                }
             }
         }
 
-        for (let i = 1; i < arr.length; i++) {
-            if (arr[i - 1] > arr[i]) {
-                moveBack(i)
-            }
-        }
 
         return order === 'asc'
             ? arr.reverse()
