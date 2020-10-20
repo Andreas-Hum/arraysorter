@@ -1,6 +1,6 @@
 {
   "name": "@andreas-hum/arraysorter",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A package which implements many different sorting algorithms for sorting arrays",
   "main": "./arraysorter.js",
   "scripts": {

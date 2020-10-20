@@ -624,7 +624,7 @@ class ArraySorter {
     static binaryInsertionSort(arr, order = 'des') {
 
         if (!Array.isArray(arr)) {
-            throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
+            throw new Error(`binaryInsertionSort() expects an array! Found ${typeof arr}.`);
         }
 
         if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
@@ -755,7 +755,7 @@ class ArraySorter {
     static oddEvenSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
-            throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
+            throw new Error(`oddEvenSort() expects an array! Found ${typeof arr}.`);
         }
 
         if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
@@ -986,7 +986,7 @@ class ArraySorter {
     static doubleSelectionSort(arr, order = 'des', comparison = null) {
 
         if (!Array.isArray(arr)) {
-            throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
+            throw new Error(`doubleSelectionSort() expects an array! Found ${typeof arr}.`);
         }
 
         if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
@@ -1671,7 +1671,7 @@ class ArraySorter {
     static flashSort(arr, order = 'des') {
 
         if (!Array.isArray(arr)) {
-            throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
+            throw new Error(`flashSort() expects an array! Found ${typeof arr}.`);
         }
 
         if (order.toLowerCase() !== 'des' && order.toLowerCase() !== 'asc') {
@@ -1893,7 +1893,7 @@ class ArraySorter {
     static gravitySort(arr) {
 
         if (!Array.isArray(arr)) {
-            throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
+            throw new Error(`gravitySort() expects an array! Found ${typeof arr}.`);
         }
 
         let
@@ -1949,7 +1949,7 @@ class ArraySorter {
     static stoogeSort(arr, left = 0, right = arr.length - 1) {
 
         if (!Array.isArray(arr)) {
-            throw new Error(`countingSort() expects an array! Found ${typeof arr}.`);
+            throw new Error(`stoogeSort() expects an array! Found ${typeof arr}.`);
         }
 
         if (arr[left] > arr[right]) {
